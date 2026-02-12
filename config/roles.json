@@ -1,0 +1,37 @@
+{
+  "Backend Engineer": {
+    "role_info": "Backend Engineer focused on APIs, databases, and system design.",
+    "core_skills": ["Python", "REST APIs", "SQL", "Databases", "Docker", "Authentication"],
+    "secondary_skills": ["NoSQL", "Caching", "Message Queues", "CI/CD", "Testing"],
+    "experience": {"years": 2},
+    "quality_signals": ["Open-source contributions", "System design experience"]
+  },
+  "Frontend Engineer": {
+    "role_info": "Frontend Engineer experienced with UI frameworks and performance.",
+    "core_skills": ["JavaScript", "HTML", "CSS", "React", "Accessibility"],
+    "secondary_skills": ["TypeScript", "Testing", "State Management", "Performance"],
+    "experience": {"years": 1},
+    "quality_signals": ["UX focus", "Component libraries"]
+  },
+  "Full Stack Engineer": {
+    "role_info": "Full Stack engineer covering frontend and backend responsibilities.",
+    "core_skills": ["Python", "JavaScript", "REST APIs", "React", "Databases"],
+    "secondary_skills": ["Docker", "CI/CD", "Testing", "Cloud"],
+    "experience": {"years": 2},
+    "quality_signals": ["End-to-end projects", "Cross-functional work"]
+  },
+  "Machine Learning Engineer": {
+    "role_info": "Machine Learning engineer working on model building and deployment.",
+    "core_skills": ["Python", "Machine Learning", "PyTorch", "Data Processing", "Model Evaluation"],
+    "secondary_skills": ["Docker", "ETL", "Feature Engineering", "MLOps"],
+    "experience": {"years": 2},
+    "quality_signals": ["Public models", "Peer-reviewed projects"]
+  },
+  "DevOps Engineer": {
+    "role_info": "DevOps engineer focused on infrastructure, automation, and reliability.",
+    "core_skills": ["CI/CD", "Docker", "Kubernetes", "Cloud", "Monitoring"],
+    "secondary_skills": ["Scripting", "Terraform", "Security", "Networking"],
+    "experience": {"years": 2},
+    "quality_signals": ["Infrastructure as code", "Incident response"]
+  }
+}

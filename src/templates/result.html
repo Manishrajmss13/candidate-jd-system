@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Evaluation Result</title>
+    <style>
+      :root{--bg:#f5f7fa;--card:#ffffff;--muted:#6b7280;--shadow:rgba(2,6,23,0.06)}
+      body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial; background:var(--bg);margin:20px}
+      .container{max-width:1100px;margin:0 auto;background:var(--card);padding:26px;border-radius:12px;box-shadow:0 8px 24px var(--shadow)}
+      .header{display:flex;gap:24px;align-items:center}
+      .left{flex:0 0 240px;text-align:center;border-right:1px solid #f1f5f9;padding-right:22px}
+      .score{font-size:64px;font-weight:700;color:#0b1220}
+      .label{font-size:13px;color:var(--muted);margin-top:6px}
+      .right{flex:1;padding-left:22px}
+      .meta-row{display:flex;gap:18px;align-items:center}
+      .meta-item{font-size:14px}
+      .meta-item strong{display:block;font-size:12px;color:var(--muted)}
+      .grid{display:grid;grid-template-columns:1fr 380px;gap:22px;margin-top:22px}
+      .card{background:#fbfdff;padding:16px;border-radius:10px;box-shadow:0 6px 18px rgba(2,6,23,0.03)}
+      h3{margin:0 0 10px 0;font-size:16px}
+      .chips{display:flex;flex-wrap:wrap;gap:10px}
+      .chip{background:#e6ffef;color:#065f46;padding:6px 12px;border-radius:999px;font-weight:600;font-size:13px}
+      .gap-row{display:flex;flex-direction:column;gap:12px}
+      .gap-item{display:flex;justify-content:space-between;align-items:center;gap:12px}
+      .gap-left{font-weight:700;color:#7f1d1d}
+      .gap-right{font-size:13px;color:var(--muted);min-width:64px;text-align:right}
+      .sev-bar{height:12px;background:#fff5f5;border-radius:8px;overflow:hidden;flex:1;margin:0 12px}
+      .sev-inner{height:100%;background:linear-gradient(90deg,#f97316,#ef4444);transition:width .8s ease}
+      .badge{padding:6px 8px;border-radius:8px;font-weight:700;font-size:12px}
+      .badge-critical{background:#fee2e2;color:#7f1d1d}
+      .badge-moderate{background:#fff7ed;color:#92400e}
+      .badge-low{background:#fffbeb;color:#92400e}
+      .weeks{background:#f3f4f6;color:#111827;padding:6px 10px;border-radius:8px;font-weight:700;font-size:13px}
+      .note{font-size:14px;color:#111827;line-height:1.6;white-space:pre-wrap}
+      .back-btn{display:inline-block;margin-top:14px;padding:10px 14px;background:#111827;color:#fff;border-radius:10px;text-decoration:none}
+      .progress-wrap{margin-top:10px}
+      .progress-track{height:18px;border-radius:12px;background:linear-gradient(90deg,#ef4444,#f59e0b,#10b981);overflow:hidden}
+      .progress-inner{height:100%;width:0;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;transition:width .9s ease}
+      @media (max-width:768px){.grid{grid-template-columns:1fr;}.left{border-right:none;border-bottom:1px solid #f1f5f9;padding-bottom:14px;margin-bottom:12px}}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="left">
+          <div class="score">{{ report.fit_score }}%</div>
+          <div class="label">Fit Score</div>
+        </div>
+        <div class="right">
+            <div class="meta-row">
+              <div class="meta-item"><strong>Role</strong>{{ role_name }}</div>
+              <div class="meta-item"><strong>Capability Alignment</strong>
+                {% set rl = report.readiness_level %}
+                {% if 'High' in rl %}
+                  Capability Alignment: Strong
+                {% elif 'Moderate' in rl %}
+                  Capability Alignment: Moderate
+                {% elif 'Limited' in rl or 'Significant' in rl %}
+                  Capability Alignment: Limited
+                {% else %}
+                  {{ report.readiness_level }}
+                {% endif %}
+              </div>
+              <div class="meta-item"><strong>Operational Risk</strong>
+                {% if report.risk_level == 'high' %}
+                  Operational Risk: Elevated
+                {% elif report.risk_level == 'medium' %}
+                  Operational Risk: Moderate
+                {% else %}
+                  Operational Risk: Low
+                {% endif %}
+              </div>
+            </div>
+          <div style="margin-top:12px">
+            <div style="font-size:13px;color:var(--muted);">Overall Fit</div>
+            <div class="progress-wrap">
+              <div class="progress-track">
+                <div class="progress-inner" style="width: {{ report.fit_score }}%; background: linear-gradient(90deg, #ef4444, #f59e0b, #10b981);">{{ report.fit_score }}%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div>
+          <div class="card">
+            <h3>Strength Areas</h3>
+            {% if report.strengths %}
+              <div class="chips">
+                {% for s in report.strengths %}
+                  <div class="chip">{{ s }}</div>
+                {% endfor %}
+              </div>
+            {% else %}
+              <div class="note">No clear strengths detected.</div>
+            {% endif %}
+          </div>
+
+          <div class="card" style="margin-top:14px">
+            <h3>Capability Gaps</h3>
+            {% if report.gaps %}
+              <div class="gap-row">
+                {% for g in report.gaps %}
+                  {% set sev = g.severity %}
+                  {% if sev >= 0.6 %}
+                    {% set level = 'Critical' %}
+                    {% set badge = 'badge-critical' %}
+                  {% elif sev >= 0.35 %}
+                    {% set level = 'Moderate' %}
+                    {% set badge = 'badge-moderate' %}
+                  {% else %}
+                    {% set level = 'Low' %}
+                    {% set badge = 'badge-low' %}
+                  {% endif %}
+                  <div class="gap-item">
+                    <div style="display:flex;align-items:center;gap:12px;flex:1">
+                      <div class="gap-left">{{ g.skill }}</div>
+                      <div class="sev-bar">
+                        <div class="sev-inner" style="width:{{ (g.severity * 100)|round(0, 'floor') }}%"></div>
+                      </div>
+                      <div class="gap-right"><span class="badge {{ badge }}">{{ level }}</span></div>
+                    </div>
+                    <div class="weeks">{{ report.bridgeability[g.skill].weeks_estimate }} wks</div>
+                  </div>
+                {% endfor %}
+              </div>
+            {% else %}
+              <div class="note">No significant gaps detected.</div>
+            {% endif %}
+          </div>
+        </div>
+
+        <div>
+          <div class="card">
+            <h3>Assessment Note</h3>
+            <div class="note">{{ report.explanation | replace('\n','<br>') | safe }}</div>
+            <a href="/" class="back-btn">Evaluate another resume</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

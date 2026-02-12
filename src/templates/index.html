@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>AI Candidate Readiness</title>
+    <style>
+      :root{--bg:#f5f7fa;--card:#ffffff;--muted:#6b7280;--accent:#2563eb;--glass:rgba(2,6,23,0.04)}
+      body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:var(--bg); margin:0}
+      .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px}
+      .card{width:640px;background:var(--card);box-shadow:0 8px 30px var(--glass);border-radius:12px;padding:28px}
+      h1{margin:0;font-size:20px;color:#0f172a}
+      p.lead{margin:8px 0 18px;color:var(--muted);font-size:14px}
+      label{display:block;font-size:13px;color:#0f172a;margin-top:12px}
+      .filebox{border:1px dashed #e6eef8;border-radius:10px;padding:18px;text-align:center;color:var(--muted);background:#fbfdff}
+      input[type=file]{display:block;margin:0 auto}
+      select, textarea{width:100%;padding:10px;border:1px solid #e6eef8;border-radius:8px;margin-top:8px;font-size:14px}
+      button.primary{margin-top:18px;width:100%;padding:12px;background:var(--accent);color:white;border:none;border-radius:10px;font-weight:700;cursor:pointer}
+      button.primary:hover{filter:brightness(0.96)}
+      .muted{font-size:12px;color:var(--muted);margin-top:8px}
+      @media (max-width:768px){.card{width:92%;padding:18px}}
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="card">
+        <h1>AI Candidate Readiness System</h1>
+        <p class="lead">Upload a candidate resume (PDF), select a role, and optionally paste the job description to get an explainable readiness report.</p>
+
+        <form action="/evaluate-web" method="post" enctype="multipart/form-data">
+          <label>Resume (PDF)</label>
+          <div class="filebox">
+            <input type="file" name="resume" accept="application/pdf" required />
+            <div class="muted">Drag or click to upload a PDF resume</div>
+          </div>
+
+          <label>Role</label>
+          <select name="role_name" required>
+            {% for r in roles %}
+              <option value="{{ r }}">{{ r }}</option>
+            {% endfor %}
+          </select>
+
+          <label>Job Description (optional)</label>
+          <textarea name="jd_text" rows="4" placeholder="Paste job description (optional)"></textarea>
+
+          <button class="primary" type="submit">Evaluate Candidate</button>
+          <div class="muted">Results are explanatory — use alongside human evaluation.</div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
