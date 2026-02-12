@@ -37,6 +37,13 @@ An explainable AI backend that evaluates PDF resumes against predefined role arc
 5. Compute a weighted readiness score (core skills higher weight), adjust for experience, and identify gaps and their severities.
 6. Estimate bridgeability (weeks to learn) per gap and generate a human-readable recruiter report.
 
+## Screeshots
+
+<img width="805" height="535" alt="image" src="https://github.com/user-attachments/assets/d940f7ec-413b-49ca-be07-577db41c102f" />
+
+<img width="1238" height="543" alt="image" src="https://github.com/user-attachments/assets/06078dba-4801-4a98-bda7-202794e815b8" />
+
+
 ## Local setup
 
 1. Create and activate a virtual environment:
