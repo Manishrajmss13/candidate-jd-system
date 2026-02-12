@@ -58,17 +58,7 @@ uvicorn src.main:app --reload
 
 Open the demo at: `http://127.0.0.1:8000/`
 
-## Deployment (Render)
 
-1. Push the repository to GitHub.
-2. Create a new Web Service on Render and connect your GitHub repo.
-3. Set the start command to:
-
-```
-uvicorn src.main:app --host 0.0.0.0 --port $PORT
-```
-
-Render will install dependencies from `requirements.txt` during the build step.
 
 ## File structure
 
