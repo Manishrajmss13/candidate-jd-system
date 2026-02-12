@@ -1,5 +1,12 @@
 # Candidate Readiness & Skill Gap Explanation System
 
+---
+
+## Live Demo
+
+[https://candidate-jd-system-1.onrender.com/](https://candidate-jd-system-1.onrender.com/) 
+---
+
 ## Overview
 
 An explainable AI backend that evaluates PDF resumes against predefined role archetypes and generates a recruiter-friendly readiness report. The system combines rule-based extraction, fuzzy matching, and semantic similarity to compute a weighted readiness score, identify capability gaps, and estimate effort to bridge them.
