@@ -1,11 +1,6 @@
 # Candidate Readiness & Skill Gap Explanation System
 
----
 
-## Live Demo
-
-[https://candidate-jd-system-1.onrender.com/](https://candidate-jd-system-1.onrender.com/) 
----
 
 ## Overview
 
